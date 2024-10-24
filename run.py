@@ -7,7 +7,7 @@ the command line to run the analyses.
 
 import argparse
 
-import config
+import config.config as config
 from analysis.example_analysis import ExampleAnalysis
 
 
