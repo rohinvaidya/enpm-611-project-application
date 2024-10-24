@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from data_loader import DataLoader
-from model import Issue,Event
-import config
+from data.data_loader import DataLoader
+from models.model import Issue,Event
+import config.config as config
 
 class ExampleAnalysis:
     """
