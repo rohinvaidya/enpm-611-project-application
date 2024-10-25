@@ -2,7 +2,7 @@
 import json
 from typing import List
 
-import config.config as config
+import config as config
 from models.model import Issue
 
 # Store issues as singleton to avoid reloads

@@ -1,5 +1,4 @@
-import config.config as config
-from typing import List
+import config as config
 
 class EventAnalysis:
     """
@@ -7,14 +6,13 @@ class EventAnalysis:
     issues and outputs the result of that analysis.
     """
     
-    def __init__(self, analysis_args:List):
+    def __init__(self):
         """
         Constructor
         """
         # Parameter is passed in via command line (--user)
         self.user:str = config.get_parameter('user')
         self.label:str = config.get_parameter('label')
-        self.analysis_args = analysis_args # TODO Replace with config.get_parameter()
     
     def run(self):
         pass

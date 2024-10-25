@@ -7,9 +7,10 @@ the command line to run the analyses.
 
 import argparse
 
-import config.config as config
+import config as config
 from analysis.example_analysis import ExampleAnalysis
-
+from analysis.event_analysis import EventAnalysis
+from analysis.issue_analysis import IssueAnalysis
 
 def parse_args():
     """
@@ -48,10 +49,10 @@ config.overwrite_from_args(args)
 if args.feature == 0:
     ExampleAnalysis().run()
 elif args.feature == 1:
-    pass # TODO call first analysis
+    IssueAnalysis(state = 'closed').run()
 elif args.feature == 2:
-    pass # TODO call second analysis
+    IssueAnalysis(state = 'open').run()
 elif args.feature == 3:
-    pass # TODO call third analysis
+    EventAnalysis().run()
 else:
     print('Need to specify which feature to run with --feature flag.')
