@@ -6,7 +6,7 @@ import pandas as pd
 
 from data.data_loader import DataLoader
 from models.model import Issue,Event
-import config.config as config
+import config as config
 
 class ExampleAnalysis:
     """
