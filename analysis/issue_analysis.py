@@ -24,6 +24,7 @@ class IssueAnalysis:
         open_issue_count = 0
         closed_issue_count = 0
         notknown_count = 0
+        # find the ratio of open and closed issues
         for issue in issues:
             if issue.state == "open":
                 open_issue_count += 1
@@ -33,14 +34,14 @@ class IssueAnalysis:
                 notknown_count += 1
         # print(open_issue_count, closed_issue_count, notknown_count)
 
-        # Plotting the pie chart for issue status
+        # Plotting the pie chart for open/closed issue i.e. status
         plt.figure(figsize=(8, 8))
         plt.pie([open_issue_count, closed_issue_count], labels=["open issue","closed issue"], autopct='%1.1f%%', startangle=140)
         plt.title('Status of Issues')
         plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
         # plt.show()
 
-        #find the list of top labels in issues
+        #find the list of top 5 labels in issues
         all_labels = find_labels(self,issues)
         label_title:List[str] = []
         label_count:List[int]= []
@@ -57,13 +58,6 @@ class IssueAnalysis:
         label_title.append("all other labels")
         label_count.append(others_count)
 
-        # Plotting the pie chart
-        # plt.figure(figsize=(8, 8))
-        # plt.pie(label_count, labels=label_title, autopct='%1.1f%%', startangle=140)
-        # plt.title('Top Labels in Issues('+self.state+')')
-        # plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-        # plt.show()
-
         # Plotting the bar chart for top labels in issues
         plt.figure(figsize=(12, 8))  # Set a larger figure size for readability
         plt.bar(label_title, label_count, color='skyblue')
@@ -77,7 +71,7 @@ class IssueAnalysis:
         plt.tight_layout()  # Adjust layout for better spacing
         # plt.show() 
 
-        #find the list of issues that have highest count of top labels in them and are open
+        #find the ratio of issues that have assignee and no assignee
         no_assignee_in_issue = 0
         assignee_in_issue = 0
         for issue in issues:
@@ -87,14 +81,25 @@ class IssueAnalysis:
             else:
                 assignee_in_issue += 1
 
-        # Plotting the pie chart
+        # Plotting the pie chart for ratio of assignee and no assignee
         plt.figure(figsize=(8, 8))
         plt.pie([no_assignee_in_issue, assignee_in_issue], labels=["No Assignee", "Have assignee"], autopct='%1.1f%%', startangle=140)
-        plt.title('Assignee for each issue')
+        plt.title('Ratio of assignee and no assignee')
         plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-        plt.show()
+        # plt.show()
 
         # print(no_assignee_in_issue, assignee_in_issue)
+
+        # no of events in an issue
+        no_of_events:List[int] = []
+        issue_number:List[int]= []
+        event_count = defaultdict(int)
+        for issue in issues:
+            event_count[issue.title] = len(issue.events)
+        
+        for x,y in sorted(event_count.items(), key=lambda x: x[1], reverse=True):
+            print(x,y)
+
             
 
 
