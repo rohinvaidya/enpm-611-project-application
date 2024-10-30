@@ -3,7 +3,9 @@ from datetime import datetime
 from collections import defaultdict
 from data.data_loader import DataLoader
 import matplotlib.pyplot as plt
-
+import seaborn as sns
+import numpy as np
+import pandas as pd
 class IssueAnalysis:
     """
     Implements issue analysis of GitHub
@@ -39,7 +41,7 @@ class IssueAnalysis:
         plt.pie([open_issue_count, closed_issue_count], labels=["open issue","closed issue"], autopct='%1.1f%%', startangle=140)
         plt.title('Status of Issues')
         plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-        # plt.show()
+        #plt.show()
 
         #find the list of top 5 labels in issues
         all_labels = find_labels(self,issues)
@@ -69,36 +71,94 @@ class IssueAnalysis:
         plt.xticks(rotation=45, ha="right")
         # Display the bar chart
         plt.tight_layout()  # Adjust layout for better spacing
-        # plt.show() 
+        #plt.show() 
 
         #find the ratio of issues that have assignee and no assignee
         no_assignee_in_issue = 0
         assignee_in_issue = 0
         for issue in issues:
             # print(issue.assignees)
-            if not issue.assignees:
-                no_assignee_in_issue += 1
-            else:
-                assignee_in_issue += 1
+            if issue.state == self.state:
+                if not issue.assignees:
+                    no_assignee_in_issue += 1
+                else:
+                    assignee_in_issue += 1
 
         # Plotting the pie chart for ratio of assignee and no assignee
         plt.figure(figsize=(8, 8))
         plt.pie([no_assignee_in_issue, assignee_in_issue], labels=["No Assignee", "Have assignee"], autopct='%1.1f%%', startangle=140)
-        plt.title('Ratio of assignee and no assignee')
+        plt.title('Ratio of assignee and no assignee('+self.state+')')
         plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+        #plt.show()
+
+        # find the issues that do not have assignee and includes top 5 labels in it
+        count_issue_assignee = ''
+        high_priority_issue_list = []
+        for issue in issues:
+            if issue.state == self.state:
+                for label in issue.labels:
+                    if (label in label_title) and not issue.assignees:
+                        high_priority_issue_list.append(issue)
+        print(len(high_priority_issue_list))    
+
+        count_of_events = []
+        for high_priority_issue in high_priority_issue_list:
+            if(len(high_priority_issue.events)) > 20:
+                count_of_events.append(high_priority_issue)
+        print(len(count_of_events)) 
+
+        # count of events and count of issues for same event count
+        # Count high-priority issues by the number of events
+        event_count_dict = defaultdict(int)
+
+        for high_priority_issue in high_priority_issue_list:
+            event_count = len(high_priority_issue.events)
+            event_count_dict[event_count] += 1
+
+        # Sort event counts by the number of issues in descending order
+        sorted_event_counts = sorted(event_count_dict.items(), key=lambda x: x[1], reverse=True)
+        event_counts = [count for count, _ in sorted_event_counts]  # x-axis: event counts
+        issue_counts = [issues for _, issues in sorted_event_counts]  # y-axis: number of issues
+
+        # Plotting the bar chart
+        plt.figure(figsize=(12, 8))
+        plt.bar(event_counts, issue_counts, color='skyblue')
+        plt.title('Number of Issues by Event Count in High-Priority Issues')
+        plt.xlabel('Number of Events')
+        plt.ylabel('Number of Issues')
+        plt.xticks(rotation=45)
+        plt.tight_layout()
         # plt.show()
 
-        # print(no_assignee_in_issue, assignee_in_issue)
+        # Scatter Plot
+        plt.figure(figsize=(10, 6))
+        plt.scatter(event_counts, issue_counts, color='orange', s=100, alpha=0.7)
+        plt.title('Scatter Plot of Issues by Event Count in High-Priority Issues')
+        plt.xlabel('Number of Events')
+        plt.ylabel('Number of Issues')
+        plt.xticks(rotation=45)
+        plt.grid(True)
+        # plt.show()
 
-        # no of events in an issue
-        no_of_events:List[int] = []
-        issue_number:List[int]= []
-        event_count = defaultdict(int)
-        for issue in issues:
-            event_count[issue.title] = len(issue.events)
+        # Create data in a DataFrame for easier heatmap plotting
+        data = pd.DataFrame(list(event_count_dict.items()), columns=['Event Count', 'Issue Count']).sort_values('Issue Count', ascending=False)
+
+        # Pivot the data for heatmap compatibility
+        heatmap_data = data.pivot(index='Issue Count', columns='Event Count', values='Event Count')
+        heatmap_data = heatmap_data.notnull().astype(int)  # Mark cells where issues exist with 1
+
+        # Plot heatmap
+        plt.figure(figsize=(12, 6))
+        sns.heatmap(heatmap_data, annot=True, fmt='d', cmap="YlGnBu", cbar=True, linewidths=.5)
+        plt.title("Heatmap of Event Counts vs. Issue Counts in High-Priority Issues")
+        plt.xlabel("Number of Events")
+        plt.ylabel("Number of Issues")
+        plt.show()
+
+
         
-        for x,y in sorted(event_count.items(), key=lambda x: x[1], reverse=True):
-            print(x,y)
+
+
 
             
 
