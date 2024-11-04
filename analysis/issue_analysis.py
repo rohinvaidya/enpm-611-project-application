@@ -111,16 +111,6 @@ class IssueAnalysis:
         event_counts = [count for count, _ in sorted_event_counts]  # x-axis: event counts
         issue_counts = [issues for _, issues in sorted_event_counts]  # y-axis: number of issues
 
-        # Plotting the bar chart
-        plt.figure(figsize=(12, 8))
-        plt.bar(event_counts, issue_counts, color='skyblue')
-        plt.title('Number of Issues by Event Count in High-Priority Issues')
-        plt.xlabel('Number of Events')
-        plt.ylabel('Number of Issues')
-        plt.xticks(rotation=45)
-        plt.tight_layout()
-        # plt.show()
-
         # Scatter Plot
         plt.figure(figsize=(10, 6))
         plt.scatter(event_counts, issue_counts, color='orange', s=100, alpha=0.7)
@@ -129,7 +119,7 @@ class IssueAnalysis:
         plt.ylabel('Number of Issues')
         plt.xticks(rotation=45)
         plt.grid(True)
-        # plt.show()
+        plt.show()
 
         
 def find_labels(self,issues):
@@ -142,44 +132,6 @@ def find_labels(self,issues):
                 label_counts[label] += 1
     sorted_labels = sorted(label_counts.items(), key=lambda x: x[1], reverse=True)
     return sorted_labels
-
-
-
-# Priority scoring function
-def calculate_issue_priority(issue):
-    # Define scoring weights (can be tuned)
-    LABEL_WEIGHTS = {
-        "area/docs": 1,
-        "status/triage": 2,
-        "bug": 5,
-        "feature-request": 3,
-        "urgent": 10
-    }
-    COMMENT_WEIGHT = 1      # Points per comment
-    ASSIGNEE_WEIGHT = 2     # Points if assigned to a team member
-    RECENT_ACTIVITY_WEIGHT = 3  # Points if recently updated
-    MAX_DAYS_FOR_ACTIVITY = 7   # Days within which an activity is considered "recent"
-    score = 0
-
-    # Add points for each label based on its importance
-    for label in issue['labels']:
-        score += LABEL_WEIGHTS.get(label, 0)  # Default weight of 0 if label not in weights
-
-    # Add points for comments
-    num_comments = sum(1 for event in issue['events'] if event['event_type'] == 'commented')
-    score += num_comments * COMMENT_WEIGHT
-
-    # Add points if issue is assigned
-    if issue['assignees']:
-        score += ASSIGNEE_WEIGHT
-
-    # Add points if there is recent activity (within MAX_DAYS_FOR_ACTIVITY)
-    last_updated = datetime.fromisoformat(issue['updated_date'].replace("Z", "+00:00"))
-    days_since_update = (datetime.now() - last_updated).days
-    if days_since_update <= MAX_DAYS_FOR_ACTIVITY:
-        score += RECENT_ACTIVITY_WEIGHT
-
-    return score
 
 if __name__ == '__main__':
     # Invoke run method when running this module directly
