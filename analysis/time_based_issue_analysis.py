@@ -1,4 +1,3 @@
-import datetime as time
 from typing import List
 from numpy import average
 import pandas as pd
@@ -22,7 +21,6 @@ class TimeBasedIssueAnalysis:
         """
         # Parameter is passed in via command line (--user)
         self.user:str = config.get_parameter('user')
-        self.label:str = config.get_parameter('label')
     
     def run(self):
         issues:List[Issue] = DataLoader().get_issues()
@@ -94,12 +92,39 @@ class TimeBasedIssueAnalysis:
         return closed_issues_df
 
     def analyse_closed_issues(self, closed_issues_df):
-        fig = px.area(closed_issues_df[:100],
+
+        # Print the top 10 highest number of issues assigned to a single user
+        labels_df = pd.DataFrame(closed_issues_df['labels'].value_counts().nlargest(20))
+        print(labels_df)
+
+        average_time_taken = average(closed_issues_df['time_diff_in_days'])
+        print(f"The average time taken is {average_time_taken}")
+
+        fig = px.bar(labels_df,
+                        title=f"Top 20 Labels")
+
+        fig.show()
+
+        closed_issues_sorted = closed_issues_df.sort_values(by='time_diff_in_days', ascending=False)
+
+        # Identify duplicates
+        duplicates = closed_issues_sorted.duplicated(keep='first')
+
+        print("******** Duplicates ********")
+        print(duplicates)
+
+        closed_issues_sorted_without_duplicates = closed_issues_sorted.drop_duplicates(subset=['creator'], keep='first')
+
+        df = closed_issues_sorted_without_duplicates[:500].sample(frac=1).reset_index(drop=True)
+
+        fig = px.bar(df,
                 x='creator',
                 y='time_diff_in_months',
-                color='time_diff_in_days',
+                color='time_diff_in_months',
                 hover_data=['labels'],
-                title='Time Taken to Close Issues')
+                title='Time Taken to Close Issues (Top 500)',
+                labels ={'creator': 'Creator',
+                         'time_diff_in_months': 'Time Taken in Months'})
 
         fig.show()
 
