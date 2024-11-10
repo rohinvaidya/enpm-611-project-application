@@ -14,7 +14,7 @@ With the utility functions provided, you should focus on implementing creative a
 In addition to the utility functions, an example analysis has also been implemented in `example_analysis.py`. It illustrates how to use the provided utility functions and how to produce output.
 
 Below are the modules used to provide analysis on the Poetry project:
-- `issue_analysis.py`: This is the module that is used to provide an analysis on the issue. It gives an overview of how many open and closed issues we have, how many of them have users assigned to it, and time it takes to assign a user to an issue.
+- `issue_analysis.py`: This is the module that is used to provide an analysis on the issue. It gives an overview of open and closed issues, how many of them have users assigned to it, and time it takes to assign a user to an issue.
 
 ## Setup
 
@@ -44,7 +44,7 @@ python run.py --feature 0
 
 That will output basic information about the issues to the command line.
 
-To see the graph of how long it takes to assign a user to an issue, run the following command:
+Analysis 1: To see the graph of how long it takes to assign a user to an issue, run the following command:
 
 ```
 python run.py --feature 1
