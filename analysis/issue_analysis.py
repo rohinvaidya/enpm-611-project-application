@@ -36,9 +36,6 @@ class IssueAnalysis:
         else:
             time_to_assign_user_label(self,issues)
 
-        
-            
-
 
 def time_to_assign_user_label(self,issues):
     assignedtime = []
@@ -48,7 +45,6 @@ def time_to_assign_user_label(self,issues):
                 for event in issue.events:
                     if event.event_type== "assigned":
                         assignedtime.append((event.event_date - issue.created_date).total_seconds()/(86400*30))
-    print("IN IF COND = ",len(assignedtime))
     plt.figure(figsize=(10, 6))  # Set figure size for better visibility
     plt.hist(assignedtime, bins=40, color='skyblue', edgecolor='black')
     plt.xlabel('Time to Assign (Months)')
@@ -65,12 +61,10 @@ def time_to_assign_user(self,issues):
                     assignedtime.append((event.event_date - issue.created_date).total_seconds()/(86400*30))
     print(len(assignedtime))
 
-    plt.figure(figsize=(10, 6))  # Set figure size for better visibility
+    plt.figure(figsize=(10, 6))
 
     # Create a histogram to show the distribution of assignment times
     plt.hist(assignedtime, bins=40, color='skyblue', edgecolor='black')
-
-    # Labels and title
     plt.xlabel('Time to Assign a User (Months)')
     plt.ylabel('Number of Issues')
     plt.title('Distribution of Time to Assign Issues')
@@ -91,7 +85,7 @@ def analysis_open_closed_ratio(self,issues):
     plt.figure(figsize=(8, 8))
     plt.pie([open_issue_count, closed_issue_count], labels=["open issue","closed issue"], autopct='%1.1f%%', startangle=140)
     plt.title('Status of Issues')
-    plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    plt.axis('equal')
     plt.show()
 
 def top_labels(self,issues):
@@ -116,7 +110,7 @@ def top_labels(self,issues):
     plt.xlabel("Labels")
     plt.ylabel("Counts")
     plt.xticks(rotation=45, ha="right")
-    plt.tight_layout()  # Adjust layout for better spacing
+    plt.tight_layout()
     plt.show() 
 
 def assignee_ratio(self,issues):
@@ -131,14 +125,13 @@ def assignee_ratio(self,issues):
     plt.figure(figsize=(8, 8))
     plt.pie([no_assignee_in_issue, assignee_in_issue], labels=["No Assignee", "Have assignee"], autopct='%1.1f%%', startangle=140)
     plt.title('Ratio of assignee and no assignee')
-    plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    plt.axis('equal')
     plt.show()
         
 def find_labels(self,issues):
     label_counts = defaultdict(int)
     # Iterate over each Issue object in the list
     for issue in issues:
-        # Assuming `labels` is a list attribute on the Issue object
         if issue.state == self.state:
             for label in issue.labels:
                 label_counts[label] += 1
