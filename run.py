@@ -11,6 +11,7 @@ import config as config
 from analysis.example_analysis import ExampleAnalysis
 from analysis.event_analysis import EventAnalysis
 from analysis.issue_analysis import IssueAnalysis
+from analysis.user_specific_issue_analysis import UserSpecificIssueAnalysis
 
 def parse_args():
     """
@@ -53,6 +54,9 @@ elif args.feature == 1:
 elif args.feature == 2:
     IssueAnalysis(state = 'open').run()
 elif args.feature == 3:
-    EventAnalysis().run()
+    EventAnalysis().run()   
+elif args.feature == 4:
+    UserSpecificIssueAnalysis().run() 
+    
 else:
     print('Need to specify which feature to run with --feature flag.')
