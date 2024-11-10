@@ -1,5 +1,3 @@
-# user_specific_issue_analysis.py
-
 from typing import List, Dict
 import matplotlib.pyplot as plt
 import pandas as pd

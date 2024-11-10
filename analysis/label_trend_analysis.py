@@ -1,5 +1,3 @@
-# label_trend_analysis.py
-
 from typing import List, Dict
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -34,12 +32,12 @@ class LabelTrendAnalysis:
 
         # Calculate total label usage to identify top labels
         total_label_usage = {label: sum(months.values()) for label, months in label_trend.items()}
-        top_labels = sorted(total_label_usage, key=total_label_usage.get, reverse=True)[:5]  # Top 10 labels
+        top_labels = sorted(total_label_usage, key=total_label_usage.get, reverse=True)[:5]  # Top 5 labels
 
-        # Filter label_trend to include only top labels
+        # Filtering label_trend to include only top labels
         top_label_trend = {label: label_trend[label] for label in top_labels}
 
-        # Convert the nested dictionary to a DataFrame
+        # Converting the nested dictionary to a DataFrame
         df_dict = {}
         for label, months in top_label_trend.items():
             df_dict[label] = months
@@ -55,11 +53,10 @@ class LabelTrendAnalysis:
         num_months = len(months)
 
         # Determine the step for displaying labels to reduce clutter
-        # For example, display every 3rd label
-        step = max(1, math.ceil(num_months / 12))  # Aim for around 12 labels
+        step = max(1, math.ceil(num_months / 24))  # max is there to insure that the step is never less than 1
 
         # Generate Line Chart for Top Labels
-        plt.figure(figsize=(16, 9))  # Increased width for better readability
+        plt.figure(figsize=(16, 9))
         for label in df_sorted.columns:
             plt.plot(df_sorted.index, df_sorted[label], label=label)
 
@@ -67,7 +64,6 @@ class LabelTrendAnalysis:
         plt.ylabel('Number of Labels Added')
         plt.title('Trend of Top 5 Label Usage Over Time')
 
-        # Set x-ticks to display every 'step' month to avoid clustering
         plt.xticks(ticks=range(0, num_months, step), labels=[months[i] for i in range(0, num_months, step)], rotation=45, ha='right')
 
         plt.legend(title='Labels', bbox_to_anchor=(1.05, 1), loc='upper left')

@@ -1,11 +1,9 @@
-# status_event_analysis.py
-
 from typing import List, Dict
 import matplotlib.pyplot as plt
 import pandas as pd
 
 from data.data_loader import DataLoader
-from models.model import Issue, Event
+from models.model import Issue
 import config
 
 class EventLabelCategoriesAnalysis:
@@ -37,16 +35,13 @@ class EventLabelCategoriesAnalysis:
         # Dictionary to hold label event counts
         label_event_counts: Dict[str, int] = {}
         
-        # Iterate through each issue
+        # Iterate through each event in each issue
         for issue in issues:
-            # Iterate through each event in the issue
             for event in issue.events:
-                # Check if the event is a label addition event
                 if event.event_type == 'labeled' and event.label:
-                    label = event.label.lower()  # Normalize label to lowercase for consistency
+                    label = event.label.lower()
                     # Check if the label starts with the specified prefix
                     if label.startswith(label_prefix):
-                        # Remove the prefix for cleaner visualization
                         label_clean = label.replace(label_prefix, '')
                         label_event_counts[label_clean] = label_event_counts.get(label_clean, 0) + 1
         
@@ -56,8 +51,6 @@ class EventLabelCategoriesAnalysis:
         
         # Convert the label_event_counts dictionary to a DataFrame for easier manipulation
         df = pd.DataFrame(list(label_event_counts.items()), columns=['Label', 'Event Count'])
-        
-        # Sort the DataFrame in descending order of event counts
         df_sorted = df.sort_values(by='Event Count', ascending=False)
         
         # Output the results to standard out
@@ -78,7 +71,7 @@ class EventLabelCategoriesAnalysis:
             height = bar.get_height()
             plt.annotate(f'{height}',
                          xy=(bar.get_x() + bar.get_width() / 2, height),
-                         xytext=(0, 3),  # 3 points vertical offset
+                         xytext=(0, 3),
                          textcoords="offset points",
                          ha='center', va='bottom', fontsize=9, fontweight='bold')
         
