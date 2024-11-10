@@ -13,6 +13,9 @@ With the utility functions provided, you should focus on implementing creative a
 
 In addition to the utility functions, an example analysis has also been implemented in `example_analysis.py`. It illustrates how to use the provided utility functions and how to produce output.
 
+Below are the modules used to provide analysis on the Poetry project:
+- `issue_analysis.py`: This is the module that is used to provide an analysis on the issue. It gives an overview of open and closed issues, how many of them have users assigned to it, and time it takes to assign a user to an issue.
+
 ## Setup
 
 To get started, your team should create a fork of this repository. Then, every team member should clone your repository to their local computer. 
@@ -40,6 +43,18 @@ python run.py --feature 0
 ```
 
 That will output basic information about the issues to the command line.
+
+Analysis 1: To see the graph of how long it takes to assign a user to an issue, run the following command:
+
+```
+python run.py --feature 1
+```
+
+To check how long it takes to assign a user to a specific label, run the following command:
+
+```
+python run.py --feature 1 --label <label_name>
+```
 
 
 ## VSCode run configuration
