@@ -49,7 +49,7 @@ config.overwrite_from_args(args)
 if args.feature == 0:
     ExampleAnalysis().run()
 elif args.feature == 1:
-    IssueAnalysis(state = 'closed').run()
+    IssueAnalysis().run()
 elif args.feature == 2:
     IssueAnalysis(state = 'open').run()
 elif args.feature == 3:

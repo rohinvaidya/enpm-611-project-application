@@ -3,9 +3,7 @@ from datetime import datetime
 from collections import defaultdict
 from data.data_loader import DataLoader
 import matplotlib.pyplot as plt
-import seaborn as sns
-import numpy as np
-import pandas as pd
+
 class IssueAnalysis:
     """
     Implements issue analysis of GitHub
@@ -25,13 +23,13 @@ class IssueAnalysis:
         issues:List[Issue] = DataLoader().get_issues()
         
         #==========Find the ratio of open and closed issues============
-        # analysis_open_closed_ratio(self,issues)
+        analysis_open_closed_ratio(self,issues)
 
         #==========Find top 5 labels in issues============
-        # top_labels(self,issues)
+        top_labels(self,issues)
 
         #==========Find the ratio of assignee and no assignee for issues============
-        # assignee_ratio(self,issues)
+        assignee_ratio(self,issues)
 
         if self.label is None:
             time_to_assign_user(self,issues)
