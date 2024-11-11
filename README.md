@@ -51,46 +51,6 @@ The `.vscode/settings.json` also customizes the VSCode user interface sligthly t
 
 Each analysis script can be executed via the command line using the run.py orchestrator module. Below are instructions for running each of the three analyses.
 
-## 1. Issue Analysis: Time taken to assign a user to an issue
-Module: issue_analysis.py
-
-Description: This module provides an analysis of the issue management process, offering an overview of open and closed issues, the number of issues assigned to users, and the time it takes to assign a user to an issue.
-
-How to Run:
-
-```
-python run.py --feature 1
-```
-
-To check how long it takes to assign a user to a specific label, run the following command:
-
-```
-python run.py --feature 1 --label <labelname>
-```
-
-Replace <labelname> with the specfic label you wish to analyze.
-
-## 2. Time Based Issue Analysis
-Module: time_based_issue_analysis.py
-
-Description: Provides insights like the longest amount of time taken by a user to close an issue [i] and also a graph about how long it takes a specific user to close an issue, segregated label-wise [ii]. 
-
-How to Run:
-
-```
-[i] python run.py --feature 2
-[ii] python run.py --feature 2 --user <username>
-```
-
-Replace <username> with the GitHub username you wish to analyze.
-
-Example:
-
-```
-[i] python run.py --feature 2
-[ii] python run.py --feature 2 --user TheButlah
-```
-
 ## 3. Reopened Issue Analysis
 Module: reopened_issue_analysis.py
 
