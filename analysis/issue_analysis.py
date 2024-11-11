@@ -1,8 +1,10 @@
 import config as config
-from datetime import datetime
+from typing import List
 from collections import defaultdict
 from data.data_loader import DataLoader
 import matplotlib.pyplot as plt
+
+from models.model import Issue
 
 class IssueAnalysis:
     """
@@ -10,14 +12,13 @@ class IssueAnalysis:
     issues and outputs the result of that analysis.
     """
     
-    def __init__(self, state:str):
+    def __init__(self):
         """
         Constructor
         """
         # Parameter is passed in via command line (--user)
         self.user:str = config.get_parameter('user')
         self.label:str = config.get_parameter('label')
-        self.state:str = state
     
     def run(self):
         issues:List[Issue] = DataLoader().get_issues()

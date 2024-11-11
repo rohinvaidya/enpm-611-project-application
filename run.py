@@ -7,10 +7,15 @@ the command line to run the analyses.
 
 import argparse
 
+from analysis.reopened_issue_analysis import ReopenedIssueAnalysis
+from analysis.time_based_issue_analysis import TimeBasedIssueAnalysis
 import config as config
 from analysis.example_analysis import ExampleAnalysis
 from analysis.event_analysis import EventAnalysis
 from analysis.issue_analysis import IssueAnalysis
+from analysis.user_specific_issue_analysis import UserSpecificIssueAnalysis
+from analysis.label_trend_analysis import LabelTrendAnalysis
+from analysis.event_label_categories_analysis import EventLabelCategoriesAnalysis
 
 def parse_args():
     """
@@ -51,8 +56,15 @@ if args.feature == 0:
 elif args.feature == 1:
     IssueAnalysis().run()
 elif args.feature == 2:
-    IssueAnalysis(state = 'open').run()
+    TimeBasedIssueAnalysis().run()
 elif args.feature == 3:
-    EventAnalysis().run()
+    ReopenedIssueAnalysis().run()   
+elif args.feature == 4:
+    UserSpecificIssueAnalysis().run()
+elif args.feature == 5:
+    LabelTrendAnalysis().run()
+elif args.feature == 6:
+    EventLabelCategoriesAnalysis().run()
+    
 else:
     print('Need to specify which feature to run with --feature flag.')

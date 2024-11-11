@@ -62,3 +62,61 @@ python run.py --feature 1 --label <label_name>
 To make the application easier to debug, runtime configurations are provided to run each of the analyses you are implementing. When you click on the run button in the left-hand side toolbar, you can select to run one of the three analyses or run the file you are currently viewing. That makes debugging a little easier. This run configuration is specified in the `.vscode/launch.json` if you want to modify it.
 
 The `.vscode/settings.json` also customizes the VSCode user interface sligthly to make navigation and debugging easier. But that is a matter of preference and can be turned off by removing the appropriate settings.
+
+# GitHub Issues Analysis for the Poetry Project
+
+Each analysis script can be executed via the command line using the run.py orchestrator module. Below are instructions for running each of the three analyses.
+
+## 3. Reopened Issue Analysis
+Module: reopened_issue_analysis.py
+
+Description: This analysis prioritizes gaining insights by understanding the characteristics and patterns of GitHub issues that were closed and then later reopened. It brings back useful data on the quality and effectiveness of issue resolution, to indicate whether initial fixes were effective or if there was a requirement to reopen the issue to work on the resolution further sometime later post closure.
+
+How to Run: 
+```
+python run.py --feature 3 
+```
+
+## 4. User-Specific Issue Analysis
+Module: user_specific_issue_analysis.py
+
+Description: Provides insights into a specific user's interactions with issues having different event labels like CLI, Triage, Bug etc. 
+
+How to Run:
+
+```
+python run.py --feature 4 --user <username>
+```
+
+Replace <username> with the GitHub username you wish to analyze.
+
+Example:
+
+```
+python run.py --feature 4 --user finswimmer
+```
+
+## 5. Label Trend Analysis
+Module: label_trend_analysis.py
+
+Description: Analyzes the trend of label usage over time for the top 5 most frequently used labels.
+
+How to Run:
+
+```
+python run.py --feature 5
+```
+
+## 6. Event Label Categories Analysis
+Module: event_label_categories_analysis.py
+
+Description: Counts the number of label-related events based on specified label categories (e.g., status/, area/). Allows dynamic analysis based on the label prefix provided.
+
+How to Run:
+
+```
+python run.py --feature 6 --label status
+```
+This command analyzes labels that start with status/ (e.g., status/triage, status/wontfix).
+
+Note: Replace status with any other label prefix as needed.
