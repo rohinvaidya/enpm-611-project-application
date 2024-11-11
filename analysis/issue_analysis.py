@@ -132,9 +132,8 @@ def assignee_ratio(self,issues):
 def find_labels(self,issues):
     label_counts = defaultdict(int)
     # Iterate over each Issue object in the list
-    for issue in issues:
-        for label in issue.labels:
-            label_counts[label] += 1
+    for label in issue.labels:
+        label_counts[label] += 1
     sorted_labels = sorted(label_counts.items(), key=lambda x: x[1], reverse=True)
     return sorted_labels
 
