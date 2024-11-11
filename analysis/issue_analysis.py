@@ -38,7 +38,7 @@ class IssueAnalysis:
             time_to_assign_user_label(self,issues)
 
 
-def time_to_assign_user_label(self,issues):
+def time_to_assign_user_label(self, issues):
     assignedtime = []
     for issue in issues:
         for label in issue.labels:
@@ -129,11 +129,12 @@ def assignee_ratio(self,issues):
     plt.axis('equal')
     plt.show()
         
-def find_labels(self,issues):
+def find_labels(self, issues):
     label_counts = defaultdict(int)
     # Iterate over each Issue object in the list
-    for label in issue.labels:
-        label_counts[label] += 1
+    for issue in issues:
+        for label in issue.labels:
+            label_counts[label] += 1
     sorted_labels = sorted(label_counts.items(), key=lambda x: x[1], reverse=True)
     return sorted_labels
 

@@ -11,10 +11,7 @@ This application template implements some of the basic functions:
 
 With the utility functions provided, you should focus on implementing creative analyses that generate intersting and insightful insights.
 
-In addition to the utility functions, an example analysis has also been implemented in `example_analysis.py`. It illustrates how to use the provided utility functions and how to produce output.
-
-Below are the modules used to provide analysis on the Poetry project:
-- `issue_analysis.py`: This is the module that is used to provide an analysis on the issue. It gives an overview of open and closed issues, how many of them have users assigned to it, and time it takes to assign a user to an issue.
+In addition to the utility functions, an example analysis has also been implemented in `example_analysis.py`. It illustrates how to use the provided utility functions and how to produce output.clear
 
 ## Setup
 
@@ -72,6 +69,27 @@ python run.py --feature 1 --label <labelname>
 ```
 
 Replace <labelname> with the specfic label you wish to analyze.
+
+## 2. Time Based Issue Analysis
+Module: time_based_issue_analysis.py
+
+Description: Provides insights like the longest amount of time taken by a user to close an issue [i] and also a graph about how long it takes a specific user to close an issue, segregated label-wise [ii]. 
+
+How to Run:
+
+```
+[i] python run.py --feature 2
+[ii] python run.py --feature 2 --user <username>
+```
+
+Replace <username> with the GitHub username you wish to analyze.
+
+Example:
+
+```
+[i] python run.py --feature 2
+[ii] python run.py --feature 2 --user TheButlah
+```
 
 ## 3. Reopened Issue Analysis
 Module: reopened_issue_analysis.py
