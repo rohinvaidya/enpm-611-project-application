@@ -137,18 +137,22 @@ class TimeBasedIssueAnalysis:
 
         print(user_df)
 
-        average_time_taken = average(user_df['time_diff_in_days'])
-        print(f"The average time taken by user: {user} is {average_time_taken} days.")
+        if len(user_df) >= 1:
+            average_time_taken = average(user_df['time_diff_in_days'])
+            print(f"The average time taken by user: '{user}' is {average_time_taken} days.")
 
-        fig = px.bar(user_df,
-            x='labels',
-            y='time_diff_in_days',
-            color='time_diff_in_days',
-            title=f"Time Taken by '{user}' to Close Issues (in days)",
-            labels={'time_diff_in_days':'Time Taken to Close Issues',
-                    'labels': 'Issue Label'})
+            fig = px.bar(user_df,
+                x='labels',
+                y='time_diff_in_days',
+                color='time_diff_in_days',
+                title=f"Time Taken by '{user}' to Close Issues (in days)",
+                labels={'time_diff_in_days':'Time Taken to Close Issues',
+                        'labels': 'Issue Label'})
 
-        fig.show()
+            fig.show()
+
+        else:
+            print(f"The average time taken by user '{user}' can not be calculated as the user is not present in the dataset.")
 
 if __name__ == '__main__':
     # Invoke run method when running this module directly
