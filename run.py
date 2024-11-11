@@ -7,6 +7,7 @@ the command line to run the analyses.
 
 import argparse
 
+from analysis.time_based_issue_analysis import TimeBasedIssueAnalysis
 import config as config
 from analysis.example_analysis import ExampleAnalysis
 from analysis.event_analysis import EventAnalysis
@@ -54,7 +55,7 @@ if args.feature == 0:
 elif args.feature == 1:
     IssueAnalysis().run()
 elif args.feature == 2:
-    IssueAnalysis(state = 'open').run()
+    TimeBasedIssueAnalysis().run()
 elif args.feature == 3:
     EventAnalysis().run()   
 elif args.feature == 4:

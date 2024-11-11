@@ -1,4 +1,5 @@
 python-dateutil
 pandas
 matplotlib
+plotly
 collections

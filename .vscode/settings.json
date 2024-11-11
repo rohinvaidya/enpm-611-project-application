@@ -1,5 +1,5 @@
 {
-    "python.defaultInterpreterPath": "${workspaceFolder}/env/bin/python",
+    "python.defaultInterpreterPath": "",
     "python.testing.unittestArgs": [
         "-v",
         "-s",
@@ -31,4 +31,6 @@
     },
     "workbench.editor.wrapTabs": true,
     "debug.toolBarLocation": "docked",
+    "python.analysis.autoImportCompletions": true,
+    "python.terminal.shellIntegration.enabled": true,
 }
