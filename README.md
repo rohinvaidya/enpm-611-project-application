@@ -67,6 +67,16 @@ The `.vscode/settings.json` also customizes the VSCode user interface sligthly t
 
 Each analysis script can be executed via the command line using the run.py orchestrator module. Below are instructions for running each of the three analyses.
 
+## 3. Reopened Issue Analysis
+Module: reopened_issue_analysis.py
+
+Description: This analysis prioritizes gaining insights by understanding the characteristics and patterns of GitHub issues that were closed and then later reopened. It brings back useful data on the quality and effectiveness of issue resolution, to indicate whether initial fixes were effective or if there was a requirement to reopen the issue to work on the resolution further sometime later post closure.
+
+How to Run: 
+```
+python run.py --feature 3 
+```
+
 ## 4. User-Specific Issue Analysis
 Module: user_specific_issue_analysis.py
 
